@@ -1,14 +1,11 @@
 package com.samuelhavard.stormy;
 
-import android.app.DownloadManager;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.squareup.okhttp.Call;
@@ -17,11 +14,15 @@ import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
 import com.squareup.okhttp.Response;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = MainActivity.class.getSimpleName();
+    private CurrentWeather mCurrentWeather;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,13 +30,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         String apiKey = "e7b76b9a0d495e609ac9083810629916";
-        Double latitude = 37.8267;
-        Double longitude = -122.423;
+        Double latitude = 41.5348272; //37.8267;//41.5348272,-73.8924061,19.52
+        Double longitude = -73.8924061; //-122.423;
         String forecastUrl = "https://api.forecast.io/forecast/" + apiKey +
                 "/" + latitude + "," + longitude;
 
 
-        if (isNetworkAvilable()) {
+        if (isNetworkAvailable()) {
             OkHttpClient client = new OkHttpClient();
             Request request = new Request.Builder()
                     .url(forecastUrl)
@@ -51,13 +52,17 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Response response) throws IOException {
                     try {
-                        Log.v(TAG, response.body().string());
+
+                        String jsonData = response.body().string();
                         if (response.isSuccessful()) {
+                            mCurrentWeather = getCurrentDetails(jsonData);
 
                         } else {
                             alertUserAboutError();
                         }
                     } catch (IOException e) {
+                        Log.e(TAG, "Exception caught", e);
+                    } catch (JSONException e) {
                         Log.e(TAG, "Exception caught", e);
                     }
                 }
@@ -69,7 +74,28 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "Main UI code is running.");
     }
 
-    private boolean isNetworkAvilable() {
+    private CurrentWeather getCurrentDetails(String jsonData) throws JSONException {
+        JSONObject forecast = new JSONObject(jsonData);
+        String timeZone = forecast.getString("timezone");
+
+        Log.i(TAG, "From JSON: " + timeZone);
+
+        JSONObject currently = forecast.getJSONObject("currently");
+        CurrentWeather currentWeather = new CurrentWeather();
+        currentWeather.setHumidity(currently.getDouble("humidity"));
+        currentWeather.setTime(currently.getLong("time"));
+        currentWeather.setIcon(currently.getString("icon"));
+        currentWeather.setChance(currently.getDouble("precipProbability"));
+        currentWeather.setSummary(currently.getString("summary"));
+        currentWeather.setTemp(currently.getDouble("temperature"));
+        currentWeather.setTimeZone(timeZone);
+
+        Log.d(TAG, currentWeather.getFormattedTime());
+
+        return currentWeather;
+    }
+
+    private boolean isNetworkAvailable() {
         ConnectivityManager manager = (ConnectivityManager)
                 getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = manager.getActiveNetworkInfo();
