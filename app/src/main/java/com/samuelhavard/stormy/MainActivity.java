@@ -56,7 +56,6 @@ public class MainActivity extends AppCompatActivity {
                         String jsonData = response.body().string();
                         if (response.isSuccessful()) {
                             mCurrentWeather = getCurrentDetails(jsonData);
-
                         } else {
                             alertUserAboutError();
                         }
