@@ -1,5 +1,9 @@
 package com.samuelhavard.stormy.weather;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
+
 /**
  * Created by samue_000 on 10/16/2015.
  */
@@ -26,8 +30,8 @@ public class Day {
             mSummary = summary;
         }
 
-        public double getTempMax() {
-            return mTempMax;
+        public int getTempMax() {
+            return (int) Math.round(mTempMax);
         }
 
         public void setTempMax(double tempMax) {
@@ -49,4 +53,15 @@ public class Day {
         public void setTimeZone(String timeZone) {
             mTimeZone = timeZone;
         }
+
+    public int getIconId(){
+        return Forecast.getIconId(mIcon);
+    }
+    public String getDayOfTheWeek(){
+        SimpleDateFormat formatter = new SimpleDateFormat("EEEE");
+        formatter.setTimeZone(TimeZone.getTimeZone(mTimeZone));
+        Date dateTime = new Date(mTime * 1000);
+        return formatter.format(dateTime);
+    }
+
 }
