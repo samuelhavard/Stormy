@@ -62,6 +62,7 @@ public class Day implements Parcelable {
     public int getIconId(){
         return Forecast.getIconId(mIcon);
     }
+
     public String getDayOfTheWeek(){
         SimpleDateFormat formatter = new SimpleDateFormat("EEEE");
         formatter.setTimeZone(TimeZone.getTimeZone(mTimeZone));
