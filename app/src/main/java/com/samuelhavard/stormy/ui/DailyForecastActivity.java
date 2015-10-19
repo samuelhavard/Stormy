@@ -2,12 +2,8 @@ package com.samuelhavard.stormy.ui;
 
 import android.app.ListActivity;
 import android.content.Intent;
-import android.os.Parcelable;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.ArrayAdapter;
+import android.os.Parcelable;
 
 import com.samuelhavard.stormy.R;
 import com.samuelhavard.stormy.adapters.DayAdapter;

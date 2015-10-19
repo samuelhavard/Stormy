@@ -9,7 +9,7 @@ import android.os.Bundle;
 import com.samuelhavard.stormy.R;
 
 /**
- * Created by samue_000 on 10/6/2015.
+ *Alert dialog created to inform the user that the network is unavailable.
  */
 public class AlertDialogFragment extends DialogFragment {
     @Override

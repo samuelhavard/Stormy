@@ -12,7 +12,7 @@ import com.samuelhavard.stormy.R;
 import com.samuelhavard.stormy.weather.Day;
 
 /**
- * Created by samue_000 on 10/17/2015.
+ * Day adapter is used to display customized data in a list for the daily weather
  */
 public class DayAdapter extends BaseAdapter {
 
