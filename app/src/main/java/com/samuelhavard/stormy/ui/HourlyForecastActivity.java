@@ -1,13 +1,11 @@
 package com.samuelhavard.stormy.ui;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Menu;
-import android.view.MenuItem;
 
 import com.samuelhavard.stormy.R;
 import com.samuelhavard.stormy.adapters.HourAdapter;
@@ -15,9 +13,8 @@ import com.samuelhavard.stormy.weather.Hour;
 
 import java.util.Arrays;
 
-import butterknife.ButterKnife;
 import butterknife.Bind;
-import butterknife.OnClick;
+import butterknife.ButterKnife;
 
 public class HourlyForecastActivity extends AppCompatActivity {
 

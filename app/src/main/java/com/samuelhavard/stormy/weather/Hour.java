@@ -32,6 +32,15 @@ public class Hour implements Parcelable{
         return timeString;
     }
 
+    public String getFormattedDate() {
+        SimpleDateFormat formatter = new SimpleDateFormat("MM-dd");
+        formatter.setTimeZone(TimeZone.getTimeZone(mTimeZone));
+        Date date = new Date(getTime() * 1000);
+        String dateString = formatter.format(date);
+
+        return dateString;
+    }
+
     public void setTime(long time) {
         mTime = time;
     }

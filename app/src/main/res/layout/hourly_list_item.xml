@@ -51,4 +51,17 @@
         android:paddingLeft="15dp"
         tools:text="Partly Cloudy"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="12/12"
+        android:id="@+id/hourDateLabel"
+        android:layout_below="@+id/timeLabel"
+        android:layout_toLeftOf="@+id/iconImageView"
+        android:layout_toStartOf="@+id/iconImageView"
+        android:textColor="#ffffffff"
+        android:paddingTop="10dp"
+        android:paddingRight="30dp"/>
+
+
 </RelativeLayout>

@@ -42,6 +42,13 @@ public class Current {
         return timeString;
     }
 
+    public String getDayOfTheWeek(){
+        SimpleDateFormat formatter = new SimpleDateFormat("EEEE");
+        formatter.setTimeZone(TimeZone.getTimeZone(mTimeZone));
+        Date dateTime = new Date(mTime * 1000);
+        return formatter.format(dateTime);
+    }
+
     public void setTime(long time) {
         mTime = time;
     }
