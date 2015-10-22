@@ -1,11 +1,13 @@
 package com.samuelhavard.stormy.adapters;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.samuelhavard.stormy.R;
 import com.samuelhavard.stormy.weather.Hour;
@@ -16,8 +18,10 @@ import com.samuelhavard.stormy.weather.Hour;
 public class HourAdapter extends RecyclerView.Adapter<HourAdapter.HourViewHolder> {
 
     private Hour[] mHours;
+    private Context mContext;
 
-    public HourAdapter(Hour[] hours) {
+    public HourAdapter(Context contexts, Hour[] hours) {
+        mContext = contexts;
         mHours = hours;
     }
 
@@ -39,7 +43,8 @@ public class HourAdapter extends RecyclerView.Adapter<HourAdapter.HourViewHolder
         return mHours.length;
     }
 
-    public class HourViewHolder extends RecyclerView.ViewHolder {
+    public class HourViewHolder extends RecyclerView.ViewHolder
+            implements View.OnClickListener {
 
         public TextView mTimeLabel;
         public TextView mSummaryLabel;
@@ -55,6 +60,8 @@ public class HourAdapter extends RecyclerView.Adapter<HourAdapter.HourViewHolder
             mTemperatureLabel = (TextView) itemView.findViewById(R.id.temperatureLabel);
             mIconImageView = (ImageView) itemView.findViewById(R.id.iconImageView);
             mHourDateLabel = (TextView) itemView.findViewById(R.id.hourDateLabel);
+
+            itemView.setOnClickListener(this);
         }
         public void bindHour(Hour hour) {
             mTimeLabel.setText(hour.getFormattedTime());
@@ -62,6 +69,19 @@ public class HourAdapter extends RecyclerView.Adapter<HourAdapter.HourViewHolder
             mTemperatureLabel.setText(hour.getTemp() + "");
             mIconImageView.setImageResource(hour.getIconId());
             mHourDateLabel.setText(hour.getFormattedDate());
+        }
+
+        @Override
+        public void onClick(View v) {
+            String time = mTimeLabel.getText().toString();
+            String temp = mTemperatureLabel.getText().toString();
+            String summary = mSummaryLabel.getText().toString();
+            String message = String.format("At %s it will be %s and %s",
+                    time,
+                    temp,
+                    summary);
+
+            Toast.makeText(mContext, message, Toast.LENGTH_LONG).show();
         }
     }
 }

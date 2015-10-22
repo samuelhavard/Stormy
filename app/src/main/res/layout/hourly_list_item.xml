@@ -3,8 +3,8 @@
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="15dp"
-                android:paddingBottom="15dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
                 tools:background="#ffaa00">
 
     <TextView
@@ -57,11 +57,9 @@
         android:text="12/12"
         android:id="@+id/hourDateLabel"
         android:layout_below="@+id/timeLabel"
-        android:layout_toLeftOf="@+id/iconImageView"
-        android:layout_toStartOf="@+id/iconImageView"
         android:textColor="#ffffffff"
-        android:paddingTop="10dp"
-        android:paddingRight="30dp"/>
+        android:layout_alignLeft="@+id/timeLabel"
+        android:paddingTop="10dp"/>
 
 
 </RelativeLayout>
